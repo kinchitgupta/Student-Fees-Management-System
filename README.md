@@ -81,4 +81,4 @@ python manage.py runserver
 
 ## License
 
-Add your license of choice here.
+Kinchit Gupta
