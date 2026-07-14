@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accountant Data | Student Fees Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   StudentFees Accountant — Light Theme
+   Soft blue/green tinted surfaces with a solid black
+   sidebar and a teal accent — distinct palette from the
+   Admin console's navy/forest-green theme.
+   ========================================================= */
+
+:root{
+  --bg-blue:#eaf4fb;
+  --bg-green:#eafaf3;
+  --surface:#ffffff;
+  --surface-tint:#f1f8f6;
+  --border:#dfe9e6;
+  --ink:#132420;
+  --ink-soft:#3d524c;
+  --muted:#748a83;
+  --teal:#0d9488;
+  --teal-dark:#0a7568;
+  --teal-bright:#14b8a6;
+  --red:#c0392b;
+  --sidebar-bg:#0a0a0a;
+  --sidebar-raised:#161616;
+  --sidebar-text:#c7cdcb;
+  --sidebar-text-dim:#767c7a;
+  --font-head:'Sora', 'Segoe UI', sans-serif;
+  --font-body:'Inter', 'Segoe UI', sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html, body{ width:100%; height:100%; }
+
+body{
+  font-family:var(--font-body);
+  background:linear-gradient(135deg, var(--bg-blue) 0%, var(--bg-green) 100%);
+  color:var(--ink);
+  line-height:1.6;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1, h2, h3, .brand{ font-family:var(--font-head); }
+
+/* ---------- Shell ---------- */
+.dashboard{
+  width:100%;
+  max-width:1200px;
+  min-height:680px;
+  background:var(--surface);
+  border-radius:18px;
+  box-shadow:0 24px 60px rgba(19,36,32,0.14), 0 2px 8px rgba(19,36,32,0.06);
+  display:flex;
+  overflow:hidden;
+  border:1px solid rgba(19,36,32,0.05);
+}
+
+/* ---------- Sidebar (solid black) ---------- */
+.sidebar{
+  width:250px;
+  flex-shrink:0;
+  background:var(--sidebar-bg);
+  color:var(--sidebar-text);
+  padding:34px 20px;
+  display:flex;
+  flex-direction:column;
+}
+
+.brand-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 6px 28px;
+  margin-bottom:28px;
+  border-bottom:1px solid rgba(255,255,255,0.09);
+}
+
+.brand-mark{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  background:var(--teal-bright);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#08110d;
+  font-family:var(--font-head);
+  font-weight:800;
+  font-size:0.85rem;
+  flex-shrink:0;
+}
+
+.brand-row .brand-name{
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:0.94rem;
+  color:#fff;
+  letter-spacing:0.2px;
+}
+
+.brand-row .brand-sub{
+  font-size:0.66rem;
+  color:var(--teal-bright);
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  font-weight:700;
+}
+
+.avatar-block{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:30px;
+  padding:14px;
+  background:var(--sidebar-raised);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.07);
+}
+
+.avatar{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  background:var(--teal-bright);
+  color:#08110d;
+  font-weight:800;
+  font-family:var(--font-head);
+  font-size:1.05rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.avatar-block .name{
+  font-weight:700;
+  font-size:0.92rem;
+  color:#fff;
+  margin-bottom:2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.avatar-block .role-tag{
+  font-size:0.68rem;
+  color:var(--teal-bright);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.nav-label{
+  font-size:0.65rem;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  color:var(--sidebar-text-dim);
+  font-weight:700;
+  padding:0 16px;
+  margin-bottom:10px;
+}
+
+.sidebar nav{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.sidebar nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:var(--sidebar-text);
+  padding:11px 16px;
+  border-radius:8px;
+  font-weight:600;
+  font-size:0.86rem;
+  position:relative;
+  transition:background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+.sidebar nav a .ic{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#4a5250;
+  flex-shrink:0;
+  transition:background 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar nav a.active,
+.sidebar nav a:hover{
+  background:rgba(20,184,166,0.14);
+  color:#fff;
+  padding-left:20px;
+}
+.sidebar nav a.active{
+  background:rgba(20,184,166,0.18);
+  box-shadow:inset 3px 0 0 var(--teal-bright);
+}
+.sidebar nav a.active .ic,
+.sidebar nav a:hover .ic{
+  background:var(--teal-bright);
+  transform:scale(1.3);
+}
+
+.sidebar .logout-block{
+  margin-top:auto;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,0.09);
+}
+.sidebar .logout-block a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:#e78d82;
+  font-weight:700;
+  font-size:0.84rem;
+  padding:10px 16px;
+  border-radius:8px;
+  transition:background 0.2s ease;
+}
+.sidebar .logout-block a:hover{ background:rgba(224,101,90,0.14); }
+
+/* ---------- Main ---------- */
+.main{
+  flex:1;
+  min-width:0;
+  padding:32px 38px;
+  overflow-y:auto;
+  background:linear-gradient(160deg, var(--bg-blue) 0%, var(--bg-green) 100%);
+}
+.main::-webkit-scrollbar{ width:8px; }
+.main::-webkit-scrollbar-track{ background:transparent; }
+.main::-webkit-scrollbar-thumb{ background:rgba(13,148,136,0.25); border-radius:8px; }
+.main::-webkit-scrollbar-thumb:hover{ background:rgba(13,148,136,0.4); }
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:6px;
+}
+
+.topbar-left h1{
+  font-size:1.32rem;
+  font-weight:800;
+  color:var(--ink);
+  letter-spacing:-0.2px;
+}
+.topbar-left p{
+  font-size:0.84rem;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.topbar-right a{
+  text-decoration:none;
+  color:var(--teal-dark);
+  font-size:0.84rem;
+  font-weight:700;
+  border:1px solid var(--border);
+  padding:9px 16px;
+  border-radius:8px;
+  background:var(--surface);
+  transition:background 0.2s ease, border-color 0.2s ease;
+}
+.topbar-right a:hover{
+  background:var(--surface-tint);
+  border-color:var(--teal);
+}
+
+.divider{
+  height:1px;
+  background:var(--border);
+  margin:20px 0 24px;
+}
+
+/* ---------- Data list ---------- */
+.data-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.data-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--teal);
+  border-radius:12px;
+  padding:18px 20px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 4px 14px rgba(19,36,32,0.05);
+  opacity:0;
+  animation:cardRise 0.5s ease forwards;
+  transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.data-card:nth-child(1){ animation-delay:0.04s; }
+.data-card:nth-child(2){ animation-delay:0.1s; }
+.data-card:nth-child(3){ animation-delay:0.16s; }
+.data-card:nth-child(4){ animation-delay:0.22s; }
+.data-card:nth-child(5){ animation-delay:0.28s; }
+.data-card:nth-child(6){ animation-delay:0.34s; }
+.data-card:nth-child(7){ animation-delay:0.4s; }
+.data-card:nth-child(8){ animation-delay:0.46s; }
+
+@keyframes cardRise{
+  from{ opacity:0; transform:translateY(16px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.data-card::before{
+  content:"";
+  position:absolute;
+  top:0; left:-100%;
+  width:100%; height:100%;
+  background:linear-gradient(120deg, transparent, rgba(13,148,136,0.09), transparent);
+  transition:left 0.6s ease;
+}
+.data-card:hover::before{ left:100%; }
+.data-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 32px rgba(19,36,32,0.12);
+  border-left-color:var(--teal-bright);
+}
+
+.data-fields{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:10px 24px;
+}
+
+.data-fields .df-label{
+  font-size:0.64rem;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  color:var(--muted);
+  font-weight:700;
+  margin-bottom:3px;
+}
+.data-fields .df-value{
+  font-size:0.9rem;
+  font-weight:700;
+  color:var(--ink);
+  font-family:var(--font-head);
+  word-break:break-word;
+}
+
+.empty-state{
+  text-align:center;
+  color:var(--muted);
+  font-size:0.9rem;
+  padding:50px 20px;
+  background:var(--surface-tint);
+  border:1px dashed var(--border);
+  border-radius:14px;
+}
+
+@media (max-width:920px){
+  .dashboard{ flex-direction:column; border-radius:16px; height:auto; }
+  .sidebar{ width:100%; border-radius:16px 16px 0 0; }
+  .main{ padding:24px 20px; }
+  .topbar{ flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <aside class="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark">SF</div>
+      <div>
+        <div class="brand-name">StudentFees</div>
+        <div class="brand-sub">Accountant</div>
+      </div>
+    </div>
+
+    <div class="avatar-block">
+      <div class="avatar">A</div>
+      <div class="meta">
+        <div class="name">{{ data.acc_name }}</div>
+        <div class="role-tag">Accountant</div>
+      </div>
+    </div>
+
+    <div class="nav-label">Menu</div>
+    <nav>
+      <a href="../accountanthome/"><span class="ic"></span>Home</a>
+      <a href="../accountant_reg/"><span class="ic"></span>Accountant Registration</a>
+      <a class="active" href="../accountant_show/"><span class="ic"></span>Accountant Data</a>
+      <a href="../show_student/"><span class="ic"></span>Student Records</a>
+    </nav>
+
+    <div class="logout-block">
+      <a href="../logout/">&larr; Sign Out</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Accountant Data</h1>
+        <p>All registered accountant accounts.</p>
+      </div>
+      <div class="topbar-right">
+        <a href="../accountanthome/">Accountant Home</a>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    {% if data %}
+      <div class="data-list">
+        {% for d in data %}
+          <div class="data-card">
+            <div class="data-fields">
+              <div>
+                <div class="df-label">Name</div>
+                <div class="df-value">{{ d.acc_name }}</div>
+              </div>
+              <div>
+                <div class="df-label">Age</div>
+                <div class="df-value">{{ d.age }}</div>
+              </div>
+              <div>
+                <div class="df-label">Contact</div>
+                <div class="df-value">{{ d.contact }}</div>
+              </div>
+              <div>
+                <div class="df-label">Address</div>
+                <div class="df-value">{{ d.address }}</div>
+              </div>
+              <div>
+                <div class="df-label">Email</div>
+                <div class="df-value">{{ d.email }}</div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No accountants registered yet.</div>
+    {% endif %}
+  </main>
+
+</div>
+
+</body>
+</html>

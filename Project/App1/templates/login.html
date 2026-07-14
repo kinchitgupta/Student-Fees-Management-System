@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Student Fees Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#c8e6f5;
+    --blue-mid:#a8d8f0;
+    --blue-dark:#1a6fa8;
+    --orange:#e8571a;
+    --orange-light:#f07a3a;
+    --white:#ffffff;
+    --surface:#f2f9fd;
+    --ink:#1a2230;
+    --muted:#5a6a78;
+    --border:#c0ddef;
+    --font-head:'Fredoka One', cursive;
+    --font-body:'Nunito', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    font-family:var(--font-body);
+    background:var(--white);
+    color:var(--ink);
+    min-height:100vh;
+  }
+
+  h1, h2, h3, .brand, .eyebrow{
+    font-family:var(--font-head);
+  }
+
+  .wrap{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    min-height:100vh;
+  }
+
+  /* Left: brand / info panel with image */
+  .info-panel{
+    position:relative;
+    background:
+      linear-gradient(165deg, rgba(26,111,168,0.90), rgba(232,87,26,0.55)),
+      url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    color:var(--white);
+    padding:50px 60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .info-panel .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.15rem;
+  }
+
+  .info-panel .brand .mark{
+    width:36px;
+    height:36px;
+    background:var(--orange);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:0.9rem;
+    font-family:var(--font-head);
+  }
+
+  .info-panel .copy{
+    max-width:420px;
+  }
+
+  .info-panel .eyebrow{
+    color:var(--orange-light);
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:16px;
+  }
+
+  .info-panel h1{
+    font-size:2.2rem;
+    margin-bottom:14px;
+    line-height:1.25;
+  }
+
+  .info-panel p{
+    color:#e4eef5;
+    font-size:0.98rem;
+  }
+
+  .info-panel .points{
+    list-style:none;
+    margin-top:28px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .info-panel .points li{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:0.92rem;
+    color:#eaf2f8;
+  }
+
+  .info-panel .points li .dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--orange);
+    flex-shrink:0;
+  }
+
+  .info-panel .foot{
+    font-size:0.82rem;
+    color:#c9dceb;
+  }
+
+  /* Right: form panel */
+  .form-panel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:50px 40px;
+    background:var(--white);
+  }
+
+  .form-box{
+    width:100%;
+    max-width:380px;
+  }
+
+  .form-box nav{
+    display:flex;
+    justify-content:flex-end;
+    gap:24px;
+    margin-bottom:50px;
+  }
+
+  .form-box nav a{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:0.88rem;
+    font-weight:700;
+  }
+
+  .form-box nav a:hover{
+    color:var(--orange);
+  }
+
+  .form-box .eyebrow{
+    color:var(--blue-dark);
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    margin-bottom:10px;
+  }
+
+  .form-box h2{
+    font-size:1.9rem;
+    color:var(--blue-dark);
+    margin-bottom:8px;
+  }
+
+  .form-box .sub{
+    color:var(--muted);
+    font-size:0.92rem;
+    margin-bottom:34px;
+  }
+
+  .field{
+    margin-bottom:20px;
+  }
+
+  .field label{
+    display:block;
+    font-size:0.84rem;
+    font-weight:800;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+
+  .field input{
+    width:100%;
+    padding:13px 14px;
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    font-family:var(--font-body);
+    font-size:0.95rem;
+    background:var(--surface);
+    color:var(--ink);
+    transition:border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .field input:focus{
+    outline:none;
+    border-color:var(--blue-dark);
+    box-shadow:0 0 0 3px rgba(26,111,168,0.15);
+  }
+
+  button[type="submit"]{
+    width:100%;
+    padding:14px;
+    background:var(--orange);
+    color:#fff;
+    border:none;
+    border-radius:30px;
+    font-family:var(--font-head);
+    font-size:1.05rem;
+    font-weight:400;
+    letter-spacing:0.3px;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.2s ease;
+    margin-top:8px;
+  }
+
+  button[type="submit"]:hover{
+    background:var(--orange-light);
+    transform:translateY(-2px);
+  }
+
+  .msg{
+    margin-top:18px;
+    padding:12px 14px;
+    background:#fbeaea;
+    border:1px solid #ecbcbc;
+    color:#8a2c2c;
+    border-radius:10px;
+    font-size:0.88rem;
+    text-align:center;
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:30px 0;
+    color:var(--muted);
+    font-size:0.8rem;
+  }
+
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+
+  .helper{
+    text-align:center;
+    font-size:0.88rem;
+    color:var(--muted);
+  }
+
+  .helper a{
+    color:var(--orange);
+    font-weight:700;
+    text-decoration:none;
+  }
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr;}
+    .info-panel{
+      padding:40px 28px;
+      min-height:280px;
+    }
+    .info-panel .points{display:none;}
+    .form-panel{padding:40px 24px;}
+    .form-box nav{justify-content:flex-start;margin-bottom:30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="info-panel">
+    <div class="brand">
+      <div class="mark">SF</div>
+      Student Fees Management
+    </div>
+
+    <div class="copy">
+      <div class="eyebrow">Welcome back</div>
+      <h1>Sign in to manage your fees and courses</h1>
+      <p>Track payments, check dues, and review your enrolled courses — all from one secure account.</p>
+      <ul class="points">
+        <li><span class="dot"></span>Real-time fee status</li>
+        <li><span class="dot"></span>Course details at a glance</li>
+        <li><span class="dot"></span>Secure, simple access</li>
+      </ul>
+    </div>
+
+    <div class="foot">&copy; 2026 Student Fees Management</div>
+  </section>
+
+  <section class="form-panel">
+    <div class="form-box">
+      <nav>
+        <a href="../">Home</a>
+      </nav>
+
+      <div class="eyebrow">Account Access</div>
+      <h2>Login</h2>
+      <p class="sub">Enter your details to continue to your dashboard.</p>
+
+      <form method="POST" action="../login/">
+        {% csrf_token %}
+        <div class="field">
+          <label for="txt1">Email</label>
+          <input type="text" name="T1" id="txt1" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="txt2">Password</label>
+          <input type="password" name="T2" id="txt2" placeholder="Enter your password">
+        </div>
+        <button type="submit">Login</button>
+      </form>
+
+      {% if msg %}
+      <div class="msg">{{ msg }}</div>
+      {% endif %}
+
+      <div class="divider">Need help?</div>
+      <p class="helper">Contact <a href="../">7565364653</a> if you can't access your account.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

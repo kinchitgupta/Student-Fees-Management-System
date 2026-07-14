@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Accountant | Student Fees Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2a3f;
+  --green:#0e7a52;
+  --green-dark:#0a5e3f;
+  --accent:#15a374;
+  --bg:#f6f8f7;
+  --surface:#ffffff;
+  --surface-tint:#f1f7f4;
+  --ink:#16201c;
+  --ink-soft:#3c4a44;
+  --muted:#7c8a82;
+  --border:#e3e9e5;
+  --font-head:'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  --font-body:'Inter', 'Segoe UI', sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1{ font-family:var(--font-head); }
+
+.page-card{
+  width:100%;
+  max-width:560px;
+  background:var(--surface);
+  border-radius:20px;
+  box-shadow:0 24px 60px rgba(15,42,63,0.14), 0 2px 8px rgba(15,42,63,0.06);
+  border:1px solid rgba(15,42,63,0.05);
+  padding:38px 40px;
+}
+
+.page-card h1{
+  font-size:1.4rem;
+  font-weight:800;
+  color:var(--navy);
+  letter-spacing:-0.2px;
+  margin-bottom:4px;
+  text-transform:capitalize;
+}
+
+.page-card .sub{
+  font-size:0.86rem;
+  color:var(--muted);
+  margin-bottom:24px;
+}
+
+.divider{
+  height:1px;
+  background:var(--border);
+  margin:0 0 24px;
+}
+
+.field-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px 18px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.field.full{
+  grid-column:1 / -1;
+}
+
+.field label{
+  font-size:0.74rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  color:var(--ink-soft);
+}
+
+.field input{
+  font-family:var(--font-body);
+  font-size:0.9rem;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:10px 13px;
+  outline:none;
+  transition:border-color 0.2s ease, box-shadow 0.2s ease;
+  width:100%;
+}
+
+.field input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(21,163,116,0.14);
+}
+
+.field input[readonly]{
+  background:var(--surface-tint);
+  color:var(--muted);
+  cursor:not-allowed;
+}
+.field input[readonly]:focus{
+  box-shadow:none;
+  border-color:var(--border);
+}
+
+.form-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:22px;
+}
+
+.btn-primary{
+  border:none;
+  background:linear-gradient(90deg, var(--green), var(--accent), var(--green));
+  background-size:220% auto;
+  color:#fff;
+  padding:11px 30px;
+  border-radius:9px;
+  font-family:var(--font-head);
+  font-weight:600;
+  font-size:0.88rem;
+  cursor:pointer;
+  letter-spacing:0.1px;
+  transition:background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover{
+  background-position:right center;
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(14,122,82,0.28);
+}
+
+.btn-secondary{
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--navy);
+  padding:11px 26px;
+  border-radius:9px;
+  font-family:var(--font-head);
+  font-weight:600;
+  font-size:0.88rem;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  transition:background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-secondary:hover{
+  background:var(--surface-tint);
+  border-color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(15,42,63,0.1);
+}
+
+.btn-danger{
+  transition:background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-danger:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(192,57,43,0.18); }
+
+.btn-link{
+  color:var(--green-dark);
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.84rem;
+}
+.btn-link:hover{ color:var(--green); }
+
+.msg-banner{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--surface-tint);
+  border:1px solid var(--accent);
+  color:var(--green-dark);
+  font-weight:600;
+  font-size:0.9rem;
+  padding:14px 16px;
+  border-radius:10px;
+}
+.msg-banner::before{
+  content:"";
+  width:8px; height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  flex-shrink:0;
+}
+
+@media (max-width:600px){
+  .field-grid{ grid-template-columns:1fr; }
+  .page-card{ padding:28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-card">
+  <h1>Edit Details</h1>
+  <p class="sub">Update this accountant's account information.</p>
+  <div class="divider"></div>
+
+  {% if data %}
+    <form method="post" action="../edit_accountant1/">
+      {% csrf_token %}
+      <div class="field-grid">
+        <div class="field">
+          <label for="txt1">Name</label>
+          <input type="text" name="T1" id="txt1" value="{{ data.acc_name }}">
+        </div>
+        <div class="field">
+          <label for="txt2">Age</label>
+          <input type="text" name="T2" id="txt2" value="{{ data.age }}">
+        </div>
+        <div class="field">
+          <label for="txt3">Contact</label>
+          <input type="text" name="T3" id="txt3" value="{{ data.contact }}">
+        </div>
+        <div class="field">
+          <label for="txt4">Address</label>
+          <input type="text" name="T4" id="txt4" value="{{ data.address }}">
+        </div>
+        <div class="field full">
+          <label for="txt5">Email</label>
+          <input type="text" name="T5" id="txt5" value="{{ data.email }}" readonly>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit</button>
+        <a class="btn-link" href="../accountant_show/">Cancel</a>
+      </div>
+    </form>
+  {% elif msg %}
+    <div class="msg-banner">{{ msg }}</div>
+    <div class="form-actions">
+      <a class="btn-secondary" href="../accountant_show/">Back</a>
+    </div>
+  {% endif %}
+</div>
+
+</body>
+</html>

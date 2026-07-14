@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Home | Student Fees Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#c8e6f5;
+    --blue-mid:#a8d8f0;
+    --blue-dark:#1a6fa8;
+    --orange:#e8571a;
+    --orange-light:#f07a3a;
+    --white:#ffffff;
+    --ink:#1a2230;
+    --muted:#5a6a78;
+    --border:#c0ddef;
+    --font-head:'Fredoka One', cursive;
+    --font-body:'Nunito', sans-serif;
+  }
+
+  html,body{width:100%;overflow-x:hidden;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    font-family:var(--font-body);
+    background:var(--blue);
+    color:var(--ink);
+    line-height:1.55;
+    font-size:1rem;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar{
+    background:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:12px 32px;
+    box-shadow:0 2px 12px rgba(26,111,168,0.1);
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
+
+  .brand{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--font-head);
+    font-size:1.05rem;
+    color:var(--blue-dark);
+  }
+
+  .brand .mark{
+    width:32px;height:32px;
+    background:var(--orange);
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+    font-size:0.85rem;
+    font-family:var(--font-head);
+  }
+
+  .topbar nav{display:flex;gap:8px;align-items:center;}
+
+  .topbar nav a{
+    text-decoration:none;
+    font-weight:800;
+    font-size:0.88rem;
+    color:var(--blue-dark);
+    padding:8px 16px;
+    border-radius:20px;
+  }
+
+  .topbar nav a:hover{color:var(--orange);}
+
+  .topbar nav a.nav-btn{
+    background:var(--orange);
+    color:#fff;
+    padding:8px 20px;
+  }
+
+  .topbar nav a.nav-btn:hover{background:var(--orange-light); color:#fff;}
+
+  /* ── WRAP: two-column layout so panels sit side by side, not stacked ── */
+  .wrap{
+    max-width:1150px;
+    margin:0 auto;
+    padding:20px 28px 34px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+
+  .wrap .card.full{grid-column:1/-1;}
+
+  /* ── CARD ── */
+  .card{
+    background:var(--white);
+    border-radius:16px;
+    padding:18px 22px;
+    box-shadow:0 6px 18px rgba(26,111,168,0.1);
+  }
+
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+  }
+
+  .card-head .ic{
+    width:32px;height:32px;
+    background:var(--blue);
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.05rem;
+    flex-shrink:0;
+  }
+
+  .card-head h2{
+    font-family:var(--font-head);
+    font-size:1.15rem;
+    color:var(--blue-dark);
+  }
+
+  /* ── PROFILE: photo + fields laid out in one horizontal row ── */
+  .profile{
+    display:flex;
+    gap:22px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+
+  .photo-col{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    flex-shrink:0;
+  }
+
+  .photo-col img{
+    width:80px;height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--blue);
+  }
+
+  .photo-ph{
+    width:80px;height:80px;
+    border-radius:50%;
+    background:var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;
+  }
+
+  .link-chip{
+    text-decoration:none;
+    background:var(--orange);
+    color:#fff;
+    font-size:0.72rem;
+    font-weight:800;
+    padding:5px 12px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+
+  .link-chip:hover{background:var(--orange-light);}
+
+  .profile-fields{flex:1; min-width:260px;}
+
+  .id-line{
+    font-family:var(--font-head);
+    font-size:1rem;
+    color:var(--orange);
+    margin-bottom:10px;
+  }
+
+  .info-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .info-item{
+    background:var(--blue);
+    border-radius:9px;
+    padding:6px 12px;
+    flex:1 1 130px;
+  }
+
+  .info-item.wide{flex-basis:100%;}
+
+  .info-item .lbl{
+    display:block;
+    font-size:0.68rem;
+    font-weight:800;
+    text-transform:uppercase;
+    color:var(--blue-dark);
+  }
+
+  .info-item .val{
+    font-weight:700;
+    font-size:0.92rem;
+  }
+
+  .btn-outline{
+    margin-top:12px;
+    background:transparent;
+    border:2px solid var(--orange);
+    color:var(--orange);
+    padding:7px 18px;
+    border-radius:20px;
+    font-weight:800;
+    font-size:0.85rem;
+    cursor:pointer;
+    font-family:var(--font-body);
+  }
+
+  .btn-outline:hover{background:var(--orange); color:#fff;}
+
+  /* ── DIV-BLOCK ENTRIES (course / fees) — compact rows inside their own card column ── */
+  .block-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-height:260px;
+    overflow-y:auto;
+    padding-right:4px;
+  }
+
+  .entry-block{
+    background:var(--blue);
+    border-radius:10px;
+    padding:8px 12px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:4px 14px;
+  }
+
+  .entry-block .field{
+    display:flex;
+    align-items:baseline;
+    gap:5px;
+  }
+
+  .entry-block .k{
+    color:var(--blue-dark);
+    font-weight:800;
+    font-size:0.68rem;
+    text-transform:uppercase;
+  }
+
+  .entry-block .v{
+    font-weight:700;
+    font-size:0.88rem;
+  }
+
+  .entry-block .v.money{color:var(--orange); font-family:var(--font-head); font-size:0.92rem;}
+
+  .entry-block .receipt-btn{
+    text-decoration:none;
+    margin-left:auto;
+    background:var(--orange);
+    color:#fff;
+    font-weight:800;
+    font-size:0.72rem;
+    padding:6px 14px;
+    border-radius:20px;
+  }
+
+  .entry-block .receipt-btn:hover{background:var(--orange-light);}
+
+  .empty{
+    color:var(--muted);
+    font-size:0.92rem;
+    font-weight:700;
+  }
+
+  .logout-line{
+    text-align:center;
+  }
+
+  .logout-line a{
+    text-decoration:none;
+    color:var(--muted);
+    font-weight:800;
+    font-size:0.88rem;
+  }
+
+  .logout-line a:hover{color:var(--orange);}
+
+  @media (max-width:800px){
+    .wrap{grid-template-columns:1fr;}
+  }
+
+  @media (max-width:600px){
+    .topbar{padding:10px 18px;}
+    .wrap{padding:14px 14px 26px;}
+    .profile{flex-direction:column; align-items:center; text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="mark">SF</div>
+    Student Home
+  </div>
+  <nav>
+    <a href="../uploadphoto/">Photo</a>
+    <a href="../download_fees_pdf/">Receipt</a>
+    <a class="nav-btn" href="../logout/">Logout</a>
+  </nav>
+</div>
+
+<div class="wrap">
+
+  <!-- STUDENT INFO (full width, horizontal layout) -->
+  <div class="card full">
+    <div class="card-head">
+      <div class="ic">🎓</div>
+      <h2>Student Info</h2>
+    </div>
+
+    <div class="profile">
+      <div class="photo-col">
+        {% if photo %}
+          {% for d in photo %}
+            <img src="../media/{{d.photo}}" alt="photo">
+          {% endfor %}
+          <a class="link-chip" href="../uploadphoto/">Change</a>
+        {% else %}
+          <div class="photo-ph">🙂</div>
+          <a class="link-chip" href="../uploadphoto/">Upload</a>
+        {% endif %}
+      </div>
+
+      <div class="profile-fields">
+        {% if data %}
+          <div class="id-line">ID: {{ data.regno }}</div>
+          <div class="info-row">
+            <div class="info-item"><span class="lbl">Name</span><span class="val">{{ data.student_name }}</span></div>
+            <div class="info-item"><span class="lbl">Father</span><span class="val">{{ data.father_name }}</span></div>
+            <div class="info-item"><span class="lbl">Gender</span><span class="val">{{ data.gender }}</span></div>
+            <div class="info-item"><span class="lbl">Age</span><span class="val">{{ data.age }}</span></div>
+            <div class="info-item"><span class="lbl">Contact</span><span class="val">{{ data.contact }}</span></div>
+            <div class="info-item"><span class="lbl">Email</span><span class="val">{{ data.email }}</span></div>
+            <div class="info-item wide"><span class="lbl">Address</span><span class="val">{{ data.address }}</span></div>
+          </div>
+          <form method="post" action="../change_student_password/">
+            {% csrf_token %}
+            <input type="hidden" name="C1" value="{{data.email}}">
+            <button type="submit" class="btn-outline">Change Password</button>
+          </form>
+        {% else %}
+          <span class="empty">No student info found.</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSE INFO (left column) -->
+  <div class="card">
+    <div class="card-head">
+      <div class="ic">📚</div>
+      <h2>Course Info</h2>
+    </div>
+
+    {% if course %}
+      <div class="block-list">
+        {% for c in course %}
+          <div class="entry-block">
+            <div class="field"><span class="k">ID</span><span class="v">{{c.student_id}}</span></div>
+            <div class="field"><span class="k">Course</span><span class="v">{{c.course_name}}</span></div>
+            <div class="field"><span class="k">Joined</span><span class="v">{{c.join_date}}</span></div>
+            <div class="field"><span class="k">Fees</span><span class="v money">{{c.fee}}</span></div>
+            <div class="field"><span class="k">Remarks</span><span class="v">{{c.remarks}}</span></div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <span class="empty">No course info found.</span>
+    {% endif %}
+  </div>
+
+  <!-- FEES INFO (right column) -->
+  <div class="card">
+    <div class="card-head">
+      <div class="ic">💰</div>
+      <h2>Fees Info</h2>
+    </div>
+
+    {% if Info %}
+      <div class="block-list">
+        {% for I in Info %}
+          <div class="entry-block">
+            <div class="field"><span class="k">Date</span><span class="v">{{I.deposit_date}}</span></div>
+            <div class="field"><span class="k">Amount</span><span class="v money">{{I.amount}}</span></div>
+            <div class="field"><span class="k">Method</span><span class="v">{{I.payment_Method}}</span></div>
+            <div class="field"><span class="k">Remark</span><span class="v">{{I.remark}}</span></div>
+            <a class="receipt-btn" href="../download_fees_pdf/">Receipt</a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <span class="empty">No fees info found.</span>
+    {% endif %}
+  </div>
+
+  <div class="logout-line card full" style="box-shadow:none; padding:8px;">
+    <a href="../logout/">logout</a>
+  </div>
+
+</div>
+
+</body>
+</html>

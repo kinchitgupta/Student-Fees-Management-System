@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Profile | Student Fees Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-blue:#eaf4fb;
+  --bg-green:#eafaf3;
+  --surface:#ffffff;
+  --surface-tint:#f1f8f6;
+  --border:#dfe9e6;
+  --ink:#132420;
+  --ink-soft:#3d524c;
+  --muted:#748a83;
+  --teal:#0d9488;
+  --teal-dark:#0a7568;
+  --teal-bright:#14b8a6;
+  --red:#c0392b;
+  --sidebar-bg:#0a0a0a;
+  --sidebar-raised:#161616;
+  --sidebar-text:#c7cdcb;
+  --sidebar-text-dim:#767c7a;
+  --font-head:'Sora', 'Segoe UI', sans-serif;
+  --font-body:'Inter', 'Segoe UI', sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html, body{ width:100%; height:100%; }
+
+body{
+  font-family:var(--font-body);
+  background:linear-gradient(135deg, var(--bg-blue) 0%, var(--bg-green) 100%);
+  color:var(--ink);
+  line-height:1.6;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  -webkit-font-smoothing:antialiased;
+}
+
+.dashboard{
+  width:100%;
+  max-width:1200px;
+  min-height:680px;
+  background:var(--surface);
+  border-radius:18px;
+  box-shadow:0 24px 60px rgba(19,36,32,0.14), 0 2px 8px rgba(19,36,32,0.06);
+  display:flex;
+  overflow:hidden;
+  border:1px solid rgba(19,36,32,0.05);
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  width:250px;
+  flex-shrink:0;
+  background:var(--sidebar-bg);
+  color:var(--sidebar-text);
+  padding:34px 20px;
+  display:flex;
+  flex-direction:column;
+}
+.brand-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 6px 28px;
+  margin-bottom:28px;
+  border-bottom:1px solid rgba(255,255,255,0.09);
+}
+.brand-mark{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  background:var(--teal-bright);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#08110d;
+  font-family:var(--font-head);
+  font-weight:800;
+  font-size:0.85rem;
+}
+.brand-row .brand-name{ font-family:var(--font-head); font-weight:700; font-size:0.94rem; color:#fff; }
+.brand-row .brand-sub{ font-size:0.66rem; color:var(--teal-bright); letter-spacing:0.5px; text-transform:uppercase; font-weight:700; }
+
+.nav-label{ font-size:0.65rem; text-transform:uppercase; letter-spacing:1.2px; color:var(--sidebar-text-dim); font-weight:700; padding:0 16px; margin-bottom:10px; }
+.sidebar nav{ display:flex; flex-direction:column; gap:3px; }
+.sidebar nav a{
+  display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--sidebar-text);
+  padding:11px 16px; border-radius:8px; font-weight:600; font-size:0.86rem; transition: all 0.2s;
+}
+.sidebar nav a .ic{ width:6px; height:6px; border-radius:50%; background:#4a5250; }
+.sidebar nav a:hover{ background:rgba(20,184,166,0.14); color:#fff; padding-left:20px; }
+.sidebar nav a:hover .ic{ background:var(--teal-bright); }
+.sidebar .logout-block{ margin-top:auto; padding-top:18px; border-top:1px solid rgba(255,255,255,0.09); }
+.sidebar .logout-block a { text-decoration:none; color:#e78d82; font-weight:700; font-size:0.84rem; padding:10px 16px; display:block;}
+
+/* ---------- Main ---------- */
+.main{
+  flex:1; min-width:0; padding:32px 38px; overflow-y:auto;
+  background:linear-gradient(160deg, var(--bg-blue) 0%, var(--bg-green) 100%);
+}
+.topbar{ display:flex; align-items:center; justify-content:between; margin-bottom:6px; }
+.topbar-left h1{ font-family:var(--font-head); font-size:1.34rem; font-weight:800; color:var(--ink); }
+.divider{ height:1px; background:var(--border); margin:20px 0 24px; }
+
+/* ---------- Forms & Cards ---------- */
+.form-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:28px;
+  box-shadow:0 6px 20px rgba(19,36,32,0.05);
+  max-width:600px;
+}
+.form-group{ margin-bottom:18px; }
+.form-group label{
+  display:block; font-size:0.72rem; text-transform:uppercase;
+  letter-spacing:0.6px; color:var(--ink-soft); font-weight:700; margin-bottom:6px;
+}
+.form-group input{
+  width:100%; padding:11px 14px; border:1px solid var(--border);
+  background:var(--surface-tint); border-radius:8px; font-family:var(--font-body);
+  font-size:0.9rem; color:var(--ink); transition:all 0.2s; outline:none;
+}
+.form-group input:focus{ border-color:var(--teal); background:#fff; box-shadow:0 0 0 3px rgba(13,148,136,0.1); }
+.form-group input[readonly]{ background:#edf2f0; color:var(--muted); cursor:not-allowed; border-color:var(--border); }
+
+.action-row{ display:flex; gap:12px; margin-top:24px; }
+.btn-submit{
+  border:1px solid var(--teal); background:var(--teal); color:#fff;
+  padding:11px 24px; border-radius:8px; font-family:var(--font-head);
+  font-weight:700; font-size:0.86rem; cursor:pointer; transition:all 0.2s;
+}
+.btn-submit:hover{ background:var(--teal-dark); border-color:var(--teal-dark); }
+.btn-back{
+  border:1px solid var(--border); background:#fff; color:var(--ink);
+  padding:11px 24px; border-radius:8px; font-family:var(--font-head);
+  font-weight:700; font-size:0.86rem; text-decoration:none; text-align:center; transition:all 0.2s;
+}
+.btn-back:hover{ background:var(--surface-tint); }
+
+.msg-box{
+  background:var(--surface); border-left:4px solid var(--teal);
+  padding:16px; border-radius:8px; margin-bottom:20px; font-weight:600; font-size:0.9rem;
+}
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark">SF</div>
+      <div>
+        <div class="brand-name">StudentFees</div>
+        <div class="brand-sub">Accountant</div>
+      </div>
+    </div>
+
+    <div class="nav-label">Menu</div>
+    <nav>
+      <a href="../accountanthome/"><span class="ic"></span>Home</a>
+      <a href="../accountant_reg2/"><span class="ic"></span>Accountant Registration</a>
+      <a href="../accountant_show/"><span class="ic"></span>Accountant Data</a>
+      <a href="../show_student/"><span class="ic"></span>Student Records</a>
+    </nav>
+
+    <div class="logout-block">
+      <a href="../logout/">&larr; Sign Out</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Edit Account Profile</h1>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    {% if msg %}
+      <div class="msg-box">
+        <p style="margin-bottom:10px;">{{ msg }}</p>
+        <a href="../accountanthome/" class="btn-back" style="padding:6px 14px; font-size:0.8rem;">Back</a>
+      </div>
+    {% endif %}
+
+    {% if data %}
+      <div class="form-card">
+        <form method="post" action="../edit_accountantprofile1/">
+          {% csrf_token %}
+          <input type="hidden" name="H1" value="{{data.email}}">
+
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="T1" value="{{data.acc_name}}">
+          </div>
+
+          <div class="form-group">
+            <label>Age</label>
+            <input type="text" name="T2" value="{{data.age}}">
+          </div>
+
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="T3" value="{{data.address}}">
+          </div>
+
+          <div class="form-group">
+            <label>Contact</label>
+            <input type="text" name="T4" value="{{data.contact}}">
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="text" name="T5" value="{{data.email}}" readonly>
+          </div>
+
+          <div class="action-row">
+            <button type="submit" class="btn-submit">Save Changes</button>
+            <a href="../accountanthome/" class="btn-back">Cancel</a>
+          </div>
+        </form>
+      </div>
+    {% endif %}
+  </main>
+</div>
+
+</body>
+</html>

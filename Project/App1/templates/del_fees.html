@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Payment Entry | Fees Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffbf8; --surface:#ffffff; --ink:#1c1015; --muted:#9c6b72;
+  --font-head:'Plus Jakarta Sans',sans-serif; --font-body:'Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{ font-family:var(--font-body); background:var(--bg); min-height:100vh; display:flex; flex-direction:column; }
+.navbar { background: #4c0519; padding: 14px 56px; display: flex; justify-content: space-between; align-items: center; }
+.nav-brand { color: #fff; font-family: var(--font-head); font-weight: 800; text-decoration: none; }
+.nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size:0.88rem; font-weight:600;}
+.content{ flex:1; max-width:480px; width:100%; margin:0 auto; padding:60px 20px; display:flex; flex-direction:column; justify-content:center;}
+.delete-card { background: var(--surface); border:2px solid #fca5a5; border-radius:16px; padding:32px; text-align:center; box-shadow:0 10px 25px rgba(239,68,68,0.06); }
+.warning-icon { font-size:2.8rem; margin-bottom:12px; display:block; }
+.title { font-family:var(--font-head); font-weight:800; font-size:1.25rem; color:#dc2626; margin-bottom:8px; }
+.subtitle { font-size:0.88rem; color:var(--muted); margin-bottom:20px; }
+.meta-box { background:#fff5f5; border:1px solid #fee2e2; border-radius:10px; padding:16px; text-align:left; margin-bottom:24px; font-size:0.9rem; }
+.meta-item { margin-bottom:6px; color:var(--ink); }
+.meta-item strong { color:var(--muted); display:inline-block; width:120px; font-size:0.8rem; text-transform:uppercase; }
+.btn-delete { width:100%; border:none; background:#ef4444; color:#fff; padding:12px; border-radius:10px; font-family:var(--font-head); font-weight:700; font-size:0.9rem; cursor:pointer; transition:background 0.2s; }
+.btn-delete:hover { background:#dc2626; }
+.msg-box { text-align:center; padding:16px; background:#fef2f2; border:1px solid #fca5a5; color:#b91c1c; border-radius:10px; font-weight:600;}
+.back-link { display:block; text-align:center; color:var(--muted); text-decoration:none; font-size:0.85rem; margin-top:14px; font-weight:600;}
+.page-footer{ background:#881337; color:rgba(255,255,255,0.55); text-align:center; padding:16px; font-size:0.8rem; margin-top:auto;}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="#" class="nav-brand">🎓 FeesPro</a>
+  <div class="nav-links"><a href="../show_student/">View All Students</a></div>
+</nav>
+
+<div class="content">
+  {% if msg %}
+    <div class="msg-box">
+      {{msg}}
+      <a href="../show_student/" class="back-link" style="margin-top:6px;">← Back to Directory</a>
+    </div>
+  {% endif %}
+
+  {% if data %}
+  <div class="delete-card">
+    <span class="warning-icon">💸</span>
+    <div class="title">Void Payment Record</div>
+    <div class="subtitle">Are you completely sure you want to remove this financial receipt transaction log entry?</div>
+
+    <div class="meta-box">
+      <div class="meta-item"><strong>Deposit Date:</strong> {{data.deposit_date}}</div>
+      <div class="meta-item"><strong>Amount Paid:</strong> ₹{{data.amount}}</div>
+      <div class="meta-item"><strong>Method Type:</strong> {{data.payment_Method}}</div>
+      <div class="meta-item"><strong>Audit Remark:</strong> {{data.remark}}</div>
+    </div>
+
+    <form action="../del_fees1/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="H2" value="{{data.transaction_id}}">
+        <button type="submit" class="btn-delete">Permanently Remove Receipt</button>
+    </form>
+    <a href="../show_student/" class="back-link">Cancel</a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="page-footer">&copy; 2026 Student Fees Management. All rights reserved.</div>
+</body>
+</html>

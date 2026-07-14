@@ -1,0 +1,10 @@
+<h1>Courses</h1>
+{% if data %}
+    {% for d in data %}
+        <h4>name:{{d.course_name}}</h4>
+        <h4>cost:{{d.cost}}</h4>
+        <h4>duration:{{d.duration}}</h4>
+        <h4>description:{{d.description}}</h4>
+        <hr>
+{% endfor %}
+{% endif %}
